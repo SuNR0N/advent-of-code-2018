@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code-2018",
+  "version": "1.0.0",
+  "description": "Advent of Code 2018",
+  "main": "src/index.ts",
+  "author": "annus.norbert@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node ."
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  }
+}
