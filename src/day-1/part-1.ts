@@ -31,7 +31,7 @@ import {
   readLines,
 } from '../utils';
 
-const frequencies = readLines(`${__dirname}/input.txt`)
+const frequencies = readLines(`${__dirname}/../../data/day-1.txt`)
   .map(Number);
 
 function calculateFrequencyChanges(start: number, frequencies: number[]): number {

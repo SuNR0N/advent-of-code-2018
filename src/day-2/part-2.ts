@@ -21,7 +21,7 @@ import {
   readLines,
 } from '../utils';
 
-const ids = readLines(`${__dirname}/input.txt`)
+const ids = readLines(`${__dirname}/../../data/day-2.txt`)
 
 function findCommonLettersForId(id: string, ids: string[]): string | undefined {
   const index = ids.indexOf(id);

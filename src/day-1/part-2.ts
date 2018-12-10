@@ -27,7 +27,7 @@ import {
   readLines,
 } from '../utils';
 
-const frequencies = readLines(`${__dirname}/input.txt`)
+const frequencies = readLines(`${__dirname}/../../data/day-1.txt`)
   .map(Number);
 
 function calculateFirstDuplicate(): number {

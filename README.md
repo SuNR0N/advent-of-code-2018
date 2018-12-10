@@ -19,3 +19,12 @@ yarn build
 ```sh
 yarn start
 ```
+
+## List of challenges
+
+- Day #1 - Chronal Calibration
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-1/part-1.ts) 
+    - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-1/part-2.ts)
+- Day #2 - Inventory Management System
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-2/part-1.ts) 
+    - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-2/part-2.ts)

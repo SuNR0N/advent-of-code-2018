@@ -29,7 +29,7 @@ import {
   readLines,
 } from '../utils';
 
-const ids = readLines(`${__dirname}/input.txt`);
+const ids = readLines(`${__dirname}/../../data/day-2.txt`);
 
 function calculateChecksum(ids: string[]): number {
   return ids.map(calculateTupleForID)
