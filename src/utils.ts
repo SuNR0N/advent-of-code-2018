@@ -6,12 +6,12 @@ export function readLines(path: string): string[] {
 }
 
 export function printSolution(path: string, solution: string): void {
-  const pathRegExp = /(?<day>[\w-]*)\/(?<part>[\w-]*)\.ts$/;
+  const pathRegExp = /([\w-]*)\/([\w-]*)\.ts$/;
   const pathRegExpExec = pathRegExp.exec(path);
-  const dayParts = pathRegExpExec!.groups!.day
+  const dayParts = pathRegExpExec![1]
     .split('-')
     .map(segmentMapper);
-  const partParts = pathRegExpExec!.groups!.part
+  const partParts = pathRegExpExec![2]
     .split('-')
     .map(segmentMapper);
   console.log(dayParts.join(' '), '>', partParts.join(' '), '-', solution);
