@@ -19,5 +19,27 @@ import {
   printSolution,
   readLines,
 } from '../utils';
+import {
+  getCharMap,
+  reducePolymer,
+} from './common';
 
 const polymer = readLines(`${__dirname}/../../data/day-5.txt`)[0];
+
+function findShortestPolymer(): number {
+  const charMap = getCharMap();
+  return Array(26)
+    .fill(65)
+    .map((v, i) => String.fromCharCode(v + i))
+    .reduce((min, char) => {
+      const modifiedPolymer = polymer.replace(new RegExp(char, 'gi'), '');
+      const length = reducePolymer(modifiedPolymer, charMap).length;
+      if (isNaN(min) || length < min) {
+        min = length;
+      }
+      return min;
+    }, NaN);
+}
+
+const solution = findShortestPolymer();
+printSolution(__filename, `The number of units within the shortest polymer: ${solution}`);

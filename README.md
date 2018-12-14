@@ -36,4 +36,4 @@ yarn start
     - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-4/part-2.ts)
 - Day #5 - Alchemical Reduction
     - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-5/part-1.ts) 
-    - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-5/part-2.ts)
+    - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-5/part-2.ts)
