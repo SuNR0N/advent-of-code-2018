@@ -37,15 +37,37 @@ import {
   printSolution,
   readLines,
 } from '../utils';
-import { Point } from './common';
+import {
+  calculateManhattanDistance,
+  getBottomRightPoint,
+  mapLineToPoint,
+  Point,
+} from './common';
 
 const coordinates: Point[] = readLines(`${__dirname}/../../data/day-6.txt`)
-  .map((line) => {
-    const [
-      x,
-      y,
-    ] = line.split(',')
-      .map((v) => v.trim())
-      .map(Number);
-    return { x, y };
-  });
+  .map(mapLineToPoint);
+
+function calculateSumOfDistances(point: Point, points: Point[]): number {
+  return points.reduce((sum, p) => {
+    const distance = calculateManhattanDistance(point, p);
+    sum += distance;
+    return sum;
+  }, 0);
+}
+
+function solve(points: Point[]): number {
+  const bottomRightPoint = getBottomRightPoint(points);
+  let regionSize = 0;
+  for (let x = 0; x < bottomRightPoint.x; x++) {
+    for (let y = 0; y < bottomRightPoint.y; y++) {
+      const sumOfDistances = calculateSumOfDistances({ x, y }, points);
+      if (sumOfDistances < 10000) {
+        regionSize++;
+      }
+    }
+  }
+  return regionSize;
+}
+
+const solution = solve(coordinates);
+printSolution(__filename, `The size of the region: ${solution}`);

@@ -54,28 +54,15 @@ import {
   printSolution,
   readLines,
 } from '../utils';
-import { Point } from './common';
+import {
+  calculateManhattanDistance,
+  getBottomRightPoint,
+  mapLineToPoint,
+  Point,
+} from './common';
 
 const coordinates: Point[] = readLines(`${__dirname}/../../data/day-6.txt`)
-  .map((line) => {
-    const [
-      x,
-      y,
-    ] = line.split(',')
-      .map((v) => v.trim())
-      .map(Number);
-    return { x, y };
-  });
-
-function calculateManhattanDistance(p1: Point, p2: Point): number {
-  return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
-}
-
-function getBottomRightPoint(points: Point[]): Point {
-  const x = Math.max(...points.map((p) => p.x));
-  const y = Math.max(...points.map((p) => p.y));
-  return { x, y };
-}
+  .map(mapLineToPoint);
 
 function getFinitePoints(points: Point[]): Point[] {
   return points.filter((point, i, arr) => {
