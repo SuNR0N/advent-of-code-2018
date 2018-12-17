@@ -5,3 +5,5 @@ import './day-4';
 import './day-5';
 import './day-6';
 import './day-7';
+import './day-8';
+import './day-9';
