@@ -47,22 +47,111 @@ import {
 
 const instructions = readLines(`${__dirname}/../../data/day-7.txt`);
 
-const workers = 2;
-const stepDuration = 0;
+const workers = 5;
+const stepDuration = 60;
 
-function calculateStepsDuration(roots: Node[], workers: number, stepDuration: number): number {
-  return 0;
+interface Step {
+  value: string;
+  seconds: number;
+  dependencies: string[];
+}
+
+function calculateStepsDuration(steps: Step[], workers: number): number {
+  const workerThreads: Array<Step | undefined> = Array(workers).fill(undefined);
+  let seconds = 0;
+  while (steps.length > 0) {
+    assignStepsToIdleWorkers(steps, workerThreads);
+    const elapsedSeconds = calculateSecondsUntilWorkerReleased(workerThreads);
+    const finishedSteps = progressWorkers(workerThreads, elapsedSeconds);
+    markFinishedDependencies(steps, finishedSteps);
+    seconds += elapsedSeconds;
+  }
+  return seconds;
+}
+
+function markFinishedDependencies(steps: Step[], finishedSteps: Step[]): void {
+  const completedDependencies = finishedSteps.map((finishedStep) => finishedStep.value);
+  for (const step of steps) {
+    completedDependencies.forEach((dependency) => {
+      const index = step.dependencies.indexOf(dependency);
+      if (index > -1) {
+        step.dependencies.splice(index, 1);
+      }
+    });
+  }
+}
+
+function assignStepsToIdleWorkers(steps: Step[], workerThreads: Array<Step | undefined>): void {
+  const stepsWithNoDependencies = steps.filter((step) => step.dependencies.length === 0);
+  for (const step of stepsWithNoDependencies) {
+    const nextIdleThreadIndex = workerThreads.findIndex((thread) => thread === undefined);
+    if (nextIdleThreadIndex === -1) {
+      break;
+    }
+    workerThreads[nextIdleThreadIndex] = step;
+    steps.splice(steps.indexOf(step), 1);
+  }
+}
+
+function calculateSecondsUntilWorkerReleased(workerThreads: Array<Step | undefined>): number {
+  return workerThreads.reduce((min, thread) => {
+    if (thread) {
+      if (isNaN(min) || thread.seconds < min) {
+        min = thread.seconds;
+      }
+    }
+    return min;
+  }, NaN);
+}
+
+function progressWorkers(workerThreads: Array<Step | undefined>, elapsedSeconds: number): Step[] {
+  const finishedSteps: Step[] = [];
+  workerThreads.forEach((thread, i, arr) => {
+    if (thread) {
+      thread.seconds -= elapsedSeconds;
+      if (thread.seconds === 0) {
+        finishedSteps.push(thread);
+        arr[i] = undefined;
+      }
+    }
+  });
+  return finishedSteps;
 }
 
 function calculateStepDuration(step: string, base: number): number {
   return step.charCodeAt(0) - 64 + base;
 }
 
-function solve(lines: string[]): number {
+function solve(lines: string[], workers: number, stepDuration: number): number {
   const roots = buildGraph(lines);
-  return calculateStepsDuration(roots, workers, stepDuration);
+  const steps = resolveSteps(roots, stepDuration);
+  return calculateStepsDuration(steps, workers);
 }
 
-const solution = solve(instructions);
-printSolution(__filename, `Instructions will take the following amount of seconds to complete: ${solution}`);
+function resolveSteps(roots: Node[], stepDuration: number): Step[] {
+  const steps: Step[] = [];
+  let str = '';
+  const availables: Node[] = roots.sort(sortByValue);
+  while (availables.length > 0) {
+    const len = availables.length;
+    for (let i = 0; i < len; i++) {
+      if (availables[i].parents.every(parentCompleted(str))) {
+        const next = availables.splice(i, 1)[0];
+        const uniqueChildren = next.children.filter(uniqueChild(availables));
+        availables.push(...uniqueChildren);
+        availables.sort(sortByValue);
+        str += next.value;
+        steps.push({
+          dependencies: next.parents.map((parent) => parent.value),
+          seconds: calculateStepDuration(next.value, stepDuration),
+          value: next.value,
+        });
+        break;
+      }
+    }
+  }
+  return steps;
+}
 
+const solution = solve(instructions, workers, stepDuration);
+printSolution(__filename, `Instructions will take the following amount of seconds to complete: ${solution}`);
