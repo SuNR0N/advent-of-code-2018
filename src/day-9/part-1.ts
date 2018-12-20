@@ -56,4 +56,60 @@ import {
   readLines,
 } from '../utils';
 
-const lines = readLines(`${__dirname}/../../data/day-9.txt`);
+const [
+  players,
+  lastMarbleValue,
+] = readLines(`${__dirname}/../../data/day-9.txt`)[0]
+  .match(/^(\d+) players; last marble is worth (\d+) points$/)!
+  .slice(1)
+  .map(Number);
+
+function playGame(players: number, lastMarbleValue: number): Map<number, number> {
+  let currentMarbleValue = 0;
+  const marbles = [currentMarbleValue];
+  const playersMap = Array<number>(players)
+    .fill(1)
+    .map((n, i) => n + i)
+    .reduce((map, n) => {
+      map.set(n, 0);
+      return map;
+    }, new Map<number, number>());
+  let currentMarbleIndex = marbles.length - 1;
+  let currentPlayer = 1;
+
+  while (currentMarbleValue < lastMarbleValue) {
+    const len = marbles.length;
+    currentMarbleValue++;
+    if (len === 1 || currentMarbleIndex === len - 2) {
+      marbles.push(currentMarbleValue);
+      currentMarbleIndex = len;
+    } else if (currentMarbleValue % 23 === 0) {
+      const index = currentMarbleIndex - 7;
+      currentMarbleIndex = index < 0 ? len + index : index;
+      const removedMarbleValue = marbles.splice(currentMarbleIndex, 1)[0];
+      const currentPlayerScore = playersMap.get(currentPlayer)!;
+      playersMap.set(currentPlayer, currentPlayerScore + currentMarbleValue + removedMarbleValue);
+    } else {
+      currentMarbleIndex = (currentMarbleIndex + 2) % len;
+      marbles.splice(currentMarbleIndex, 0, currentMarbleValue);
+    }
+    currentPlayer = currentPlayer < players ? currentPlayer + 1 : 1;
+  }
+
+  return playersMap;
+}
+
+function getHighScore(map: Map<number, number>): number {
+  return Array.from(map.entries())
+    .sort(([_idA, scoreA], [_idB, scoreB]) => scoreB - scoreA)
+    .map(([_id, score]) => score)
+  [0];
+}
+
+function solve(players: number, lastMarbleValue: number): number {
+  const playersMap = playGame(players, lastMarbleValue);
+  return getHighScore(playersMap);
+}
+
+const solution = solve(players, lastMarbleValue);
+printSolution(__filename, `The score of the winning elf: ${solution}`);

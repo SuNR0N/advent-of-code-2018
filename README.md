@@ -44,8 +44,8 @@ yarn start
     - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-7/part-1.ts) 
     - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-7/part-2.ts)
 - Day #8 - Memory Maneuver
-    - [ ] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-8/part-1.ts) 
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-8/part-1.ts) - Algorithm requires refinement for actual data
     - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-8/part-2.ts)
 - Day #9 - Marble Mania
-    - [ ] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-9/part-1.ts) 
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-9/part-1.ts) - AoC does not accept solution
     - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-9/part-2.ts)

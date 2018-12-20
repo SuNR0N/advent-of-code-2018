@@ -38,4 +38,50 @@ import {
   readLines,
 } from '../utils';
 
-const lines = readLines(`${__dirname}/../../data/day-8.txt`);
+// const numbers = readLines(`${__dirname}/../../data/day-8.txt`)[0]
+//   .split(' ')
+//   .map(Number);
+
+const numbers = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]; // 138
+
+function solve(input: number[], sum: number = 0): number {
+  const [
+    _childrenCount,
+    metaCount,
+    ...rest
+  ] = input;
+  sum += sumEntries(rest.splice(-metaCount, metaCount));
+  return processChildData(rest, sum);
+}
+
+function sumEntries(entries: number[]): number {
+  return entries.reduce((sum, n) => {
+    sum += n;
+    return sum;
+  }, 0);
+}
+
+function processChildData(input: number[], sum: number, parentMetaCount?: number): number {
+  const [
+    childrenCount,
+    metaCount,
+    ...rest
+  ] = input;
+  if (childrenCount === 0) {
+    const leafMeta = rest.splice(0, metaCount);
+    sum += sumEntries(leafMeta);
+    if (parentMetaCount !== undefined) {
+      sum += sumEntries(rest.splice(0, parentMetaCount));
+    }
+    if (rest.length === 0) {
+      return sum;
+    } else {
+      return processChildData(rest, sum, metaCount);
+    }
+  } else {
+    return processChildData(rest, sum, metaCount);
+  }
+}
+
+const solution = solve(numbers);
+printSolution(__filename, `Sum of all metadata entries: ${solution}`);
