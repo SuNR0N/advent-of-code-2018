@@ -8,3 +8,4 @@ import './day-7';
 import './day-8';
 import './day-9';
 import './day-10';
+import './day-11';

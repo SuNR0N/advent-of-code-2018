@@ -52,3 +52,6 @@ yarn start
 - Day #10 - The Stars Align
     - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-10/part-1.ts)
     - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-10/part-2.ts)
+- Day #11 - Chronal Charge
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-11/part-1.ts)
+    - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-11/part-2.ts)
