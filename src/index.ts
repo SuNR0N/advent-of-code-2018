@@ -7,3 +7,4 @@ import './day-6';
 import './day-7';
 import './day-8';
 import './day-9';
+import './day-10';

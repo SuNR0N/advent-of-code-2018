@@ -49,3 +49,6 @@ yarn start
 - Day #9 - Marble Mania
     - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-9/part-1.ts) - AoC does not accept solution
     - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-9/part-2.ts)
+- Day #10 - The Stars Align
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-10/part-1.ts)
+    - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-10/part-2.ts)

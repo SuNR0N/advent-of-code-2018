@@ -41,8 +41,12 @@ import {
 // const numbers = readLines(`${__dirname}/../../data/day-8.txt`)[0]
 //   .split(' ')
 //   .map(Number);
-
-const numbers = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]; // 138
+// 44
+// const numbers = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]; // 138
+//                                 M  M  M   M   M                           M  M  M         M    M  M  M  M  M
+const numbers = [2, 3, 1, 3, 0, 2, 3, 7, 10, 11, 12, 1, 1, 2, 1, 1, 1, 0, 2, 3, 4, 10, 0, 1, 17, 99, 2, 1, 1, 2]; // 182
+// const numbers = [2, 3, 1, 3, 0, 2, 5, 7, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]; // 150
+// const numbers = [2, 3, 0, 3, 10, 11, 12, 1, 4, 0, 1, 99, 2, 2, 2, 2, 1, 1, 2]; // 144
 
 function solve(input: number[], sum: number = 0): number {
   const [
@@ -50,8 +54,10 @@ function solve(input: number[], sum: number = 0): number {
     metaCount,
     ...rest
   ] = input;
-  sum += sumEntries(rest.splice(-metaCount, metaCount));
-  return processChildData(rest, sum);
+  const metaEntries = rest.slice(-metaCount);
+  const restExcludingMetaEntries = rest.slice(0, -metaCount);
+  sum += sumEntries(metaEntries);
+  return processChildData(restExcludingMetaEntries, sum);
 }
 
 function sumEntries(entries: number[]): number {
@@ -61,26 +67,34 @@ function sumEntries(entries: number[]): number {
   }, 0);
 }
 
-function processChildData(input: number[], sum: number, parentMetaCount?: number): number {
-  const [
+function processChildData(input: number[], sum: number, parentMetaCount: number[] = []): number {
+  let [
     childrenCount,
     metaCount,
     ...rest
   ] = input;
+  console.log(childrenCount, metaCount, rest);
   if (childrenCount === 0) {
-    const leafMeta = rest.splice(0, metaCount);
-    sum += sumEntries(leafMeta);
-    if (parentMetaCount !== undefined) {
-      sum += sumEntries(rest.splice(0, parentMetaCount));
+    const leafMetaEntries = rest.slice(0, metaCount);
+    rest = rest.slice(metaCount);
+    sum += sumEntries(leafMetaEntries);
+    let nextParentMetaCount = parentMetaCount.pop();
+    while (nextParentMetaCount !== undefined) {
+      const parentMetaEntries = rest.slice(0, nextParentMetaCount);
+      rest = rest.slice(nextParentMetaCount);
+      sum += sumEntries(parentMetaEntries);
+      nextParentMetaCount = parentMetaCount.pop();
     }
+    // if (parentMetaCount !== undefined) {
+    //   const parentMetaEntries = rest.slice(0, parentMetaCount);
+    //   rest = rest.slice(parentMetaCount);
+    //   sum += sumEntries(parentMetaEntries);
+    // }
     if (rest.length === 0) {
       return sum;
-    } else {
-      return processChildData(rest, sum, metaCount);
     }
-  } else {
-    return processChildData(rest, sum, metaCount);
   }
+  return processChildData(rest, sum, [...parentMetaCount, metaCount]);
 }
 
 const solution = solve(numbers);
