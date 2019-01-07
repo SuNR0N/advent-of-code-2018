@@ -55,3 +55,9 @@ yarn start
 - Day #11 - Chronal Charge
     - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-11/part-1.ts)
     - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-11/part-2.ts)
+- Day #12 - Subterranean Sustainability
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-12/part-1.ts) - AoC does not accept solution
+    - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-12/part-2.ts)
+- Day #13 - Mine Cart Madness
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-13/part-1.ts)
+    - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-13/part-2.ts)
