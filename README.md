@@ -62,5 +62,5 @@ yarn start
     - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-13/part-1.ts)
     - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-13/part-2.ts)
 - Day #14 - Chocolate Charts
-    - [ ] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-14/part-1.ts)
-    - [ ] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-14/part-2.ts)
+    - [x] [Part #1](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-14/part-1.ts) - Slow, needs a better algorithm
+    - [x] [Part #2](https://github.com/SuNR0N/advent-of-code-2018/blob/master/src/day-14/part-2.ts)

@@ -43,44 +43,20 @@ Your puzzle input is 440231.
 
 import { printSolution } from '../utils';
 
-const input = 440231;
+import {
+  Board,
+  createRecipes,
+} from './common';
 
-interface Board {
-  recipes: number[],
-  firstIndex: number,
-  secondIndex: number,
-}
+const input = 440231;
 
 function solve(input: number, board: Board): string {
   while (board.recipes.length < input + 10) {
     board = createRecipes(board);
-    console.log(board.recipes.length);
   }
   return board.recipes
     .slice(input, input + 10)
     .join('');
-}
-
-function createRecipes(board: Board): Board {
-  const {
-    firstIndex,
-    recipes,
-    secondIndex,
-  } = board;
-  const sum = recipes[firstIndex] + recipes[secondIndex];
-  const newRecipes = [
-    ...recipes,
-    ...`${sum}`
-      .split('')
-      .map(Number),
-  ];
-  const newFirstIndex = (1 + newRecipes[firstIndex] + firstIndex) % newRecipes.length;
-  const newSecondIndex = (1 + newRecipes[secondIndex] + secondIndex) % newRecipes.length;
-  return {
-    firstIndex: newFirstIndex,
-    recipes: newRecipes,
-    secondIndex: newSecondIndex,
-  };
 }
 
 const solution = solve(input, { recipes: [3, 7], firstIndex: 0, secondIndex: 1 });
